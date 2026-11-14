@@ -1,4 +1,7 @@
-<p align="center">
+# Warframe Drop Map
+
+Interaktivní Star Chart nad oficiálními drop tabulkami Digital Extremes. Klikni na planetu, vyber node a uvidíš, co tam padá. Postaveno na datech a generátoru z [farhadrezvani/warframe-drops-pwa](https://github.com/farhadrezvani/warframe-drops-pwa) (MIT).
+
   <a href="https://warframedrops.netlify.app">
     <img src="public/assets/favicon.svg" width="128">
     <h1 align="center">Warframe Drops PWA</h1>
@@ -71,7 +74,7 @@ MIT
 
 ## Interaktivní mapa (Star Chart)
 
-Záložka **Mapa** v horní liště (nebo odkaz `/#mapa`) zobrazí interaktivní Star Chart:
+Aplikace se otevře rovnou na mapě:
 
 - **Klik na planetu** → seznam nodů, **klik na node** → co tam padá, po rotacích A/B/C (cyklus A, A, B, C) se šancí a sloupcovým pruhem.
 - **Jen garantované (100 %)** – přepínač v detailu nodu.

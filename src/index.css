@@ -11,9 +11,11 @@
 }
 
 ::selection {
-  color: #f8fafc;
-  background: #78716c;
+  color: #0a1418;
+  background: #4fe3ee;
 }
+
+html, body { background: #0a1418; }
 
 body {
   font-family: "IBM Plex Sans", sans-serif;
@@ -30,7 +32,7 @@ body {
   --wf-muted: #8aa5ab;
   background: radial-gradient(ellipse at top, #10262c 0%, var(--wf-bg) 60%);
   color: var(--wf-text);
-  min-height: calc(100vh - 73px);
+  min-height: calc(100vh - 57px);
 }
 .wf-chart { border: 1px solid var(--wf-line); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45); cursor: grab; }
 .wf-chart:active { cursor: grabbing; }
@@ -144,3 +146,12 @@ button.wf-line:hover { background: rgba(143, 211, 220, 0.08); border-color: rgba
   .wf-label text { font-size: 24px; letter-spacing: 0.2em; }
   .wf-chance { font-size: 24px; }
 }
+
+.wf-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; border-bottom: 1px solid rgba(143, 211, 220, 0.14);
+  background: #0a1418; color: #dce9ec;
+}
+.wf-header .wf-muted { color: #8aa5ab; }
+.wf-header .wf-link { color: #4fe3ee; }
+.wf-title { font-family: "Cinzel", serif; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
