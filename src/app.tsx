@@ -2,6 +2,9 @@ import { useState, useEffect } from "preact/hooks";
 import { Description, Navbar, Result, Footer } from "./components";
 import { Item } from "../generateData";
 import axios from "axios";
+import MapView, { MAP_HASH } from "./map/MapView";
+
+const currentView = () => (location.hash.startsWith(MAP_HASH) ? "map" : "list");
 
 export function App() {
   const [filter, setFilter] = useState("");
@@ -9,6 +12,13 @@ export function App() {
   const [appInfo, setAppInfo] = useState({ update: "Loading ..." });
   const [drops, setDrops] = useState([]);
   const [result, setResult] = useState([]);
+  const [view, setView] = useState<"list" | "map">(currentView);
+
+  useEffect(() => {
+    const on = () => setView(currentView());
+    addEventListener("hashchange", on);
+    return () => removeEventListener("hashchange", on);
+  }, []);
 
   const getInfo = async () => {
     let info = JSON.parse(localStorage.getItem("info") as string);
@@ -87,11 +97,16 @@ export function App() {
         loading={loading}
         lastUpdate={appInfo?.update}
         refresh={getInfo}
+        view={view}
       />
-      <main class="max-w-3xl mx-auto p-4 sm:p-6 md:p-8">
-        {!filter && <Description />}
-        <Result filter={filter} result={result} />
-      </main>
+      {view === "map" ? (
+        <MapView />
+      ) : (
+        <main class="max-w-3xl mx-auto p-4 sm:p-6 md:p-8">
+          {!filter && <Description />}
+          <Result filter={filter} result={result} />
+        </main>
+      )}
       <Footer />
     </>
   );

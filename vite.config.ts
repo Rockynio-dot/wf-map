@@ -36,6 +36,22 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        // Precache the app shell and the drop data (incl. map.json) for offline use
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,json}"],
+        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts",
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
+      },
       devOptions: {
         enabled: true,
       },

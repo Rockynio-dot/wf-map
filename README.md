@@ -68,3 +68,25 @@ here is the list of some built-in npm scripts :
 ## License
 
 MIT
+
+## Interaktivní mapa (Star Chart)
+
+Záložka **Mapa** v horní liště (nebo odkaz `/#mapa`) zobrazí interaktivní Star Chart:
+
+- **Klik na planetu** → seznam nodů, **klik na node** → co tam padá, po rotacích A/B/C (cyklus A, A, B, C) se šancí a sloupcovým pruhem.
+- **Jen garantované (100 %)** – přepínač v detailu nodu.
+- **Vyhledávání itemu** (našeptávač, šipky + Enter) → planety se rozsvítí podle nejlepší šance:
+  - **zlatá** = item padá přímo z mise,
+  - **tyrkysová** = padá relikvie, která item obsahuje,
+  - číslo pod planetou = nejlepší šance.
+- **Prime díly přes relikvie**: relikvie → šance Intact/Radiant → nejlepší nody, kde relikvie padá. Relikvie, která v misích nepadá, je označená jako *vaultovaná*.
+- Bounty (Cetus, Orb Vallis, Cambion Drift, Isolation Vaults) jsou jako „hub“ node na své planetě. Lokace mimo Star Chart (Duviri, Veil Proxima, Höllvania, Sanctuary, Dark Refractory, Ostatní) jsou chipy pod mapou.
+- Nepřátelé a kontejnery jsou ve výsledcích hledání („Nepřátelé, kontejnery a ostatní“).
+- Zoom kolečkem / tlačítky, posun tažením, na mobilu dvěma prsty. Stav je v URL, takže funguje tlačítko Zpět a odkazy jdou sdílet (např. `/#mapa?l=Mercury&n=Suisei`).
+- Mapa funguje offline (data jsou v precache service workeru).
+
+### Data
+
+`npm run prebuild` stáhne drop tabulky a vygeneruje `public/data/drops.json` i kompaktní `public/data/map.json` (`buildMap.ts`). Samotnou mapu z existujícího `drops.json` přegeneruješ přes `npm run map`. Duplicitní řádky ve stejné tabulce se sčítají (max. 100 %).
+
+Grafika mapy je vlastní vektorová (SVG), žádný herní artwork.

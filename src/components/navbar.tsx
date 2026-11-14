@@ -8,7 +8,31 @@ interface NavbarProps {
   loading: boolean;
   lastUpdate: string;
   refresh: () => void;
+  view: "list" | "map";
 }
+
+const Tabs = ({ view }: { view: "list" | "map" }) => (
+  <div class="flex rounded-lg bg-stone-200/75 dark:bg-stone-700/40 p-0.5 text-sm font-semibold shrink-0">
+    {(
+      [
+        ["list", "Hledání", "#"],
+        ["map", "Mapa", "#mapa"],
+      ] as const
+    ).map(([id, label, href]) => (
+      <a
+        href={href}
+        aria-current={view === id ? "page" : undefined}
+        class={`px-3 py-1.5 rounded-md transition ${
+          view === id
+            ? "bg-white text-stone-800 shadow dark:bg-stone-600 dark:text-white"
+            : "text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200"
+        }`}
+      >
+        {label}
+      </a>
+    ))}
+  </div>
+);
 
 const Navbar = ({
   onInput,
@@ -16,6 +40,7 @@ const Navbar = ({
   loading,
   lastUpdate,
   refresh,
+  view,
 }: NavbarProps) => {
   const [colorTheme, setTheme] = useDarkMode();
 
@@ -26,21 +51,28 @@ const Navbar = ({
   return (
     <>
       <div class="w-full flex-none border-0 md:border-b border-stone-900/10 dark:border-stone-50/5 bg-white dark:bg-stone-900">
-        <div class="max-w-3xl mx-auto">
+        <div class={view === "map" ? "max-w-[1500px] mx-auto" : "max-w-3xl mx-auto"}>
           <div class="py-2 border-b border-stone-900/10 md:px-8 md:border-0 dark:border-stone-300/10 mx-4 lg:mx-0">
             <div class="relative flex items-center justify-between text-center">
               <a class="flex-none overflow-hidden md:w-auto" href="/">
                 <span class="sr-only">Warframe Drops PWA</span>
-                <img src="/assets/favicon.svg" width="56" />
+                <img src="/assets/favicon.svg" class="w-10 sm:w-14" />
               </a>
-              <div class="text-xs uppercase font-bold tracking-tighter px-4 mr-auto">
+              <div class="hidden sm:block text-xs uppercase font-bold tracking-tighter px-4 mr-auto">
                 Warframe
                 <p class="font-light tracking-tight">Drops PWA</p>
               </div>
 
-              <nav class="md:block flex-1 hidden text-sm leading-6 font-semibold text-stone-700 dark:text-stone-200 border-r border-stone-200 dark:border-stone-800 mr-6 pr-6">
-                <Search onInput={onInput} filter={filter} />
-              </nav>
+              <div class="ml-3 sm:ml-0 mr-auto sm:mr-4 md:mr-6">
+                <Tabs view={view} />
+              </div>
+              {view === "list" ? (
+                <nav class="md:block flex-1 hidden text-sm leading-6 font-semibold text-stone-700 dark:text-stone-200 border-r border-stone-200 dark:border-stone-800 mr-6 pr-6">
+                  <Search onInput={onInput} filter={filter} />
+                </nav>
+              ) : (
+                <div class="md:flex-1" />
+              )}
               <div class="flex gap-4 items-center">
                 <label class="sr-only">Theme</label>
                 <button
@@ -67,7 +99,7 @@ const Navbar = ({
                   </svg>
                 </a>
                 <p
-                  class="w-28 text-xs leading-5 font-semibold bg-stone-400/10 rounded-full py-1 px-3 flex items-center justify-between space-x-2 hover:bg-stone-400/20 dark:highlight-white/5"
+                  class="hidden sm:flex w-28 text-xs leading-5 font-semibold bg-stone-400/10 rounded-full py-1 px-3 flex items-center justify-between space-x-2 hover:bg-stone-400/20 dark:highlight-white/5"
                   id="headlessui-menu-button-1"
                   type="button"
                   aria-haspopup="true"
@@ -98,9 +130,11 @@ const Navbar = ({
           </div>
         </div>
       </div>
-      <div class="sticky top-0 z-50 w-full flex-none border-b border-stone-900/10 dark:border-stone-50/5 bg-white dark:bg-stone-900 flex items-center p-4 md:hidden">
-        <Search onInput={onInput} filter={filter} />
-      </div>
+      {view === "list" && (
+        <div class="sticky top-0 z-50 w-full flex-none border-b border-stone-900/10 dark:border-stone-50/5 bg-white dark:bg-stone-900 flex items-center p-4 md:hidden">
+          <Search onInput={onInput} filter={filter} />
+        </div>
+      )}
     </>
   );
 };
