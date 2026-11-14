@@ -2,6 +2,7 @@ import axios from "axios";
 import crypto from "crypto";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { HTMLElement, parse } from "node-html-parser";
+import { writeMap } from "./buildMap";
 
 const url =
   "https://warframe-web-assets.nyc3.cdn.digitaloceanspaces.com/uploads/cms/hnfvc0o3jnfvc873njb03enrf56.html";
@@ -78,6 +79,7 @@ try {
 
     if (dist.hash == info.hash) {
       console.log("Data hasn't changed.");
+      writeMap(dir);
       process.exit();
     }
   }
@@ -99,6 +101,9 @@ try {
 
   writeFileSync(`${dir}/info.json`, JSON.stringify(info));
   writeFileSync(`${dir}/drops.json`, JSON.stringify(drops));
+  writeMap(dir);
 } catch (error) {
   console.error(error);
+  // Keep the map in sync with whatever drops.json we already have
+  if (existsSync(`${dir}/drops.json`)) writeMap(dir);
 }

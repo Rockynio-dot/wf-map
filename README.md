@@ -1,4 +1,7 @@
-<p align="center">
+# Warframe Drop Map
+
+Interaktivní Star Chart nad oficiálními drop tabulkami Digital Extremes. Klikni na planetu, vyber node a uvidíš, co tam padá. Postaveno na datech a generátoru z [farhadrezvani/warframe-drops-pwa](https://github.com/farhadrezvani/warframe-drops-pwa) (MIT).
+
   <a href="https://warframedrops.netlify.app">
     <img src="public/assets/favicon.svg" width="128">
     <h1 align="center">Warframe Drops PWA</h1>
@@ -68,3 +71,25 @@ here is the list of some built-in npm scripts :
 ## License
 
 MIT
+
+## Interaktivní mapa (Star Chart)
+
+Aplikace se otevře rovnou na mapě:
+
+- **Klik na planetu** → seznam nodů, **klik na node** → co tam padá, po rotacích A/B/C (cyklus A, A, B, C) se šancí a sloupcovým pruhem.
+- **Jen garantované (100 %)** – přepínač v detailu nodu.
+- **Vyhledávání itemu** (našeptávač, šipky + Enter) → planety se rozsvítí podle nejlepší šance:
+  - **zlatá** = item padá přímo z mise,
+  - **tyrkysová** = padá relikvie, která item obsahuje,
+  - číslo pod planetou = nejlepší šance.
+- **Prime díly přes relikvie**: relikvie → šance Intact/Radiant → nejlepší nody, kde relikvie padá. Relikvie, která v misích nepadá, je označená jako *vaultovaná*.
+- Bounty (Cetus, Orb Vallis, Cambion Drift, Isolation Vaults) jsou jako „hub“ node na své planetě. Lokace mimo Star Chart (Duviri, Veil Proxima, Höllvania, Sanctuary, Dark Refractory, Ostatní) jsou chipy pod mapou.
+- Nepřátelé a kontejnery jsou ve výsledcích hledání („Nepřátelé, kontejnery a ostatní“).
+- Zoom kolečkem / tlačítky, posun tažením, na mobilu dvěma prsty. Stav je v URL, takže funguje tlačítko Zpět a odkazy jdou sdílet (např. `/#mapa?l=Mercury&n=Suisei`).
+- Mapa funguje offline (data jsou v precache service workeru).
+
+### Data
+
+`npm run prebuild` stáhne drop tabulky a vygeneruje `public/data/drops.json` i kompaktní `public/data/map.json` (`buildMap.ts`). Samotnou mapu z existujícího `drops.json` přegeneruješ přes `npm run map`. Duplicitní řádky ve stejné tabulce se sčítají (max. 100 %).
+
+Grafika mapy je vlastní vektorová (SVG), žádný herní artwork.

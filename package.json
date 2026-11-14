@@ -7,10 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prebuild": "tsx generateData.ts"
+    "prebuild": "tsx generateData.ts",
+    "map": "tsx buildMap.ts"
   },
   "dependencies": {
-    "@react-spring/web": "^9.7.2",
     "axios": "^1.3.5",
     "preact": "^10.13.2"
   },
